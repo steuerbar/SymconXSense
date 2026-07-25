@@ -7,7 +7,7 @@ require_once __DIR__ . '/../libs/XSenseMQTTHelper.php';
 class XSenseMQTTDevice extends IPSModuleStrict
 {
     use XSenseMQTTHelper;
-    private const BRIDGE_MODULE_GUID = '{3B3A2F6D-7E9B-4F2A-9C6A-1F2E3D4C5B6A}';
+    private const BRIDGE_MODULE_GUID = '{5F2B7D91-8C43-4E0A-A6D5-1297B3C84E60}';
     private const BRIDGE_RX_GUID = '{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}'; // Bridge→Device
 
     private const STATUS_ACTIVE = 102;

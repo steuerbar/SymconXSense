@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 class XSenseRauchmelderKachel extends IPSModule
 {
-    private const DEVICE_MODULE_GUID = '{C523B0B6-870E-9726-778A-0FF5C6E9656E}';
+    private const DEVICE_MODULE_GUID = '{C81A4E36-2B95-47D0-8F62-73A5CE190B44}';
 
     public function Create()
     {

@@ -21,9 +21,10 @@ Im Symcon Module Control dieses Repository hinzufügen:
 https://github.com/steuerbar/SymconXSense.git
 ```
 
-Die Modul- und Bibliotheks-IDs entsprechen dem Ursprungsmodul. Eine bereits vorhandene Installation
-kann daher mit dieser Repository-Version weiterverwendet werden. Nicht gleichzeitig die Store- und
-Repository-Variante derselben Bibliothek installieren.
+Diese Repository-Variante verwendet bewusst eigene Bibliotheks- und Modul-IDs. Dadurch kollidiert
+sie nicht mit der im Symcon Module Store bekannten Originalbibliothek. Bestehende Instanzen des
+Originalmoduls müssen vor dem Wechsel entfernt und anschließend mit dieser Variante neu angelegt
+werden.
 
 ## Einrichtung
 
@@ -106,6 +107,9 @@ X-Sense MQTT Device
 - **0.5**
   - responsive Visualisierungskachel für alle Rauchmelder ergänzt
   - Comic-Produktmotiv und kompakte Statuskarten ergänzt
+- **0.6**
+  - eigener GUID-Satz für konfliktfreie Installation über Module Control
+  - interne Bridge-, Geräte-, Konfigurator- und Kachelverweise angepasst
 - **0.3**
   - Basisstand des Ursprungsmoduls
 
