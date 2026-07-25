@@ -1,0 +1,15 @@
+{
+    "id": "{A73D8D47-68E6-4B15-94E0-2DF244D5DB30}",
+    "name": "X Sense Rauchmelder Kachel",
+    "type": 3,
+    "vendor": "steuerbar",
+    "aliases": [
+        "X-Sense Übersicht",
+        "Rauchmelder Übersicht"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "XSOT",
+    "url": "https://github.com/steuerbar/SymconXSense"
+}

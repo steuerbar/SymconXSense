@@ -1,0 +1,46 @@
+{
+    "elements": [
+        {
+            "type": "NumberSpinner",
+            "name": "RefreshInterval",
+            "caption": "Aktualisierungsintervall in Sekunden",
+            "minimum": 5,
+            "maximum": 300
+        },
+        {
+            "type": "NumberSpinner",
+            "name": "GridColumns",
+            "caption": "Maximale Spaltenanzahl",
+            "minimum": 2,
+            "maximum": 6
+        },
+        {
+            "type": "CheckBox",
+            "name": "ShowDeviceId",
+            "caption": "Technische Geräte-ID anzeigen"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Label",
+            "caption": "Die Kachel findet alle X-Sense MQTT Device-Instanzen automatisch. Individuell umbenannte Instanzen werden mit ihrem Symcon-Namen angezeigt."
+        },
+        {
+            "type": "Button",
+            "caption": "Übersicht jetzt aktualisieren",
+            "onClick": "XSOT_Refresh($id);"
+        }
+    ],
+    "status": [
+        {
+            "code": 102,
+            "icon": "active",
+            "caption": "Aktiv"
+        },
+        {
+            "code": 104,
+            "icon": "inactive",
+            "caption": "Keine Rauchmelder gefunden"
+        }
+    ]
+}

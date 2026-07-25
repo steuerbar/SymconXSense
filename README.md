@@ -62,6 +62,15 @@ Der Konfigurator stellt zusätzlich eine zentrale Übersicht bereit:
 
 Die zentrale Auswertung wird alle 30 Sekunden aktualisiert.
 
+## Visualisierungskachel
+
+Das Modul `X-Sense Rauchmelder Kachel` zeigt alle Rauchmelder automatisch mit einem
+professionellen Comic-Produktmotiv. Pro Gerät sind Gesamtzustand, letzter Empfang sowie Online-,
+Rauch-, Störungs-, Batterie- und Lebensdauerstatus unmittelbar sichtbar. Im Kopfbereich werden
+Gesamtzustand, Gerätezahl, Offline-Geräte und Warnungen zusammengefasst.
+
+Für 17 Rauchmelder wird eine Kachelgröße von mindestens 4 × 4 Feldern empfohlen.
+
 ## Verbesserungen dieser Variante
 
 - erneute Bridge-Aktivierung nach abgeschlossenem Symcon-Kernelstart
@@ -94,6 +103,9 @@ X-Sense MQTT Device
   - Lebensdauer und Gerätestörung getrennt
   - Gesamtzustand und Sammelalarm je Gerät ergänzt
   - zentrale Übersicht im Konfigurator ergänzt
+- **0.5**
+  - responsive Visualisierungskachel für alle Rauchmelder ergänzt
+  - Comic-Produktmotiv und kompakte Statuskarten ergänzt
 - **0.3**
   - Basisstand des Ursprungsmoduls
 

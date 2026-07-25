@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        :root{color-scheme:light dark;--ok:#39b878;--warn:#f0a33b;--alarm:#ef4f61;--muted:#7f8ba3;--line:color-mix(in srgb,currentColor 14%,transparent);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+        *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;color:CanvasText}body{padding:8px}
+        .tile{height:100%;min-height:300px;padding:10px;border:1px solid var(--line);border-radius:17px;background:color-mix(in srgb,Canvas 94%,#10223d 6%);overflow:hidden}
+        .title-space{height:28px}.summary{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;min-height:76px;padding:8px 12px;border:1px solid color-mix(in srgb,var(--ok) 35%,var(--line));border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,Canvas 89%,#17345c),color-mix(in srgb,Canvas 96%,#1b6a55))}
+        .summary.alarm{border-color:color-mix(in srgb,var(--alarm) 65%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,Canvas 86%,#531c27),color-mix(in srgb,Canvas 96%,#aa263c))}
+        .hero{width:66px;height:66px;border-radius:12px;object-fit:cover}.copy{min-width:0}.eyebrow{font-size:.55rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.58}.headline{margin:3px 0 2px;font-size:1.08rem;line-height:1.05;font-weight:850}.subline{font-size:.61rem;opacity:.65}.stats{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;max-width:270px}.stat{min-width:54px;padding:5px 7px;border:1px solid var(--line);border-radius:9px;text-align:center;background:color-mix(in srgb,Canvas 78%,transparent)}.stat b{display:block;font-size:.82rem}.stat span{font-size:.48rem;opacity:.62;text-transform:uppercase}
+        .devices{display:grid;gap:7px;height:calc(100% - 124px);margin-top:8px;overflow:auto;padding-right:2px;align-content:start}.device{position:relative;display:grid;grid-template-columns:52px 1fr;gap:8px;min-height:76px;padding:8px;border:1px solid color-mix(in srgb,var(--ok) 35%,var(--line));border-radius:12px;background:color-mix(in srgb,Canvas 92%,#1d4e42);overflow:hidden}.device.warn{border-color:color-mix(in srgb,var(--warn) 65%,var(--line));background:color-mix(in srgb,Canvas 88%,#734518)}.device.alarm{border-color:var(--alarm);background:color-mix(in srgb,Canvas 84%,#721b2b);box-shadow:inset 3px 0 var(--alarm)}.device.offline{border-color:color-mix(in srgb,var(--muted) 60%,var(--line));filter:saturate(.55)}
+        .product{width:52px;height:52px;border-radius:10px;object-fit:cover}.device-main{min-width:0}.device h3{margin:1px 0 2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.72rem}.status{display:block;font-size:.56rem;font-weight:750;color:var(--ok)}.warn .status{color:var(--warn)}.alarm .status{color:var(--alarm)}.offline .status{color:var(--muted)}
+        .badges{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}.badge{padding:2px 5px;border-radius:5px;background:color-mix(in srgb,var(--ok) 16%,Canvas);font-size:.46rem;font-weight:750}.badge.bad{background:color-mix(in srgb,var(--alarm) 20%,Canvas);color:var(--alarm)}.badge.warn-badge{background:color-mix(in srgb,var(--warn) 20%,Canvas);color:var(--warn)}.technical{display:block;margin-top:3px;overflow:hidden;text-overflow:ellipsis;font-size:.42rem;opacity:.42}.empty{grid-column:1/-1;padding:30px;text-align:center;opacity:.65}
+        @media(max-width:620px){.summary{grid-template-columns:58px 1fr}.hero{width:54px;height:54px}.stats{grid-column:1/-1;max-width:none;justify-content:stretch}.stat{flex:1}.devices{height:calc(100% - 170px)!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+        @media(max-width:410px){.devices{grid-template-columns:1fr!important}.headline{font-size:.9rem}}
+    </style>
+</head>
+<body>
+<section class="tile">
+    <div class="title-space" aria-hidden="true"></div>
+    <header class="summary" id="summary">
+        <img class="hero" id="heroImage" alt="" src="data:image/png;base64,__PRODUCT_IMAGE__">
+        <div class="copy"><span class="eyebrow">X-Sense Brandschutz</span><h2 class="headline" id="headline">–</h2><span class="subline" id="subline">–</span></div>
+        <div class="stats">
+            <div class="stat"><b id="total">0</b><span>Gesamt</span></div>
+            <div class="stat"><b id="offline">0</b><span>Offline</span></div>
+            <div class="stat"><b id="warnings">0</b><span>Warnungen</span></div>
+        </div>
+    </header>
+    <main class="devices" id="devices"></main>
+</section>
+<script>
+const el=id=>document.getElementById(id),imageSrc=el('heroImage').src;
+const timeLabel=ts=>{if(!ts)return'noch kein Empfang';const d=new Date(ts*1000),age=Math.max(0,Date.now()/1000-ts);if(age<90)return'gerade aktualisiert';if(age<3600)return`vor ${Math.floor(age/60)} Min.`;return d.toLocaleString('de-DE',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})};
+function render(s){
+ const c=s.counts||{},warnings=(c.fault||0)+(c.battery||0)+(c.lifeEnd||0)+(c.smoke||0);
+ el('headline').textContent=s.headline||'Rauchmelder';el('subline').textContent=`Stand ${new Date((s.updated||0)*1000).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}`;
+ el('total').textContent=c.total||0;el('offline').textContent=c.offline||0;el('warnings').textContent=warnings;el('summary').classList.toggle('alarm',!!s.alarm);el('devices').style.gridTemplateColumns=`repeat(${s.columns||4},minmax(0,1fr))`;el('devices').replaceChildren();
+ (s.devices||[]).forEach(d=>{const severe=d.smoke||d.fault,warning=d.battery||d.lifeEnd,card=document.createElement('article');card.className=`device ${severe?'alarm':warning?'warn':!d.online?'offline':''}`;const badges=[['Online',!d.online,'bad'],['Rauch',d.smoke,'bad'],['Störung',d.fault,'bad'],['Batterie',d.battery,'warn-badge'],['Lebensdauer',d.lifeEnd,'warn-badge']].map(([label,active,kind],i)=>`<span class="badge ${active?kind:''}">${i===0?(d.online?'Online':'Offline'):(active?label:'✓ '+label)}</span>`).join('');card.innerHTML=`<img class="product" alt="" src="${imageSrc}"><div class="device-main"><h3></h3><span class="status"></span><div class="badges">${badges}</div><small class="technical"></small></div>`;card.querySelector('h3').textContent=d.name;card.querySelector('.status').textContent=`${d.status} · ${timeLabel(d.lastSeen)}`;const tech=card.querySelector('.technical');tech.textContent=d.deviceId;tech.hidden=!s.showDeviceId;el('devices').append(card)});
+ if(!el('devices').children.length){const e=document.createElement('div');e.className='empty';e.textContent='Noch keine X-Sense-Rauchmelder angelegt';el('devices').append(e)}
+}
+function handleMessage(data){render(typeof data==='string'?JSON.parse(data):data)}render(__INITIAL_STATE__);
+</script>
+</body>
+</html>
