@@ -17,7 +17,7 @@ class XSenseMQTTKonfigurator extends IPSModuleStrict
     {
         parent::Create();
         $this->RegisterPropertyBoolean('Debug', false);
-        $this->RegisterTimer('UpdateOverview', 30000, 'XSNK_UpdateOverview($_IPS[\'TARGET\']);');
+        $this->RegisterTimer('UpdateOverview', 10000, 'XSNK_UpdateOverview($_IPS[\'TARGET\']);');
     }
 
     public function ApplyChanges(): void
@@ -46,6 +46,7 @@ class XSenseMQTTKonfigurator extends IPSModuleStrict
             'battery'  => 0,
             'lifeEnd'  => 0
         ];
+        $issues = [];
 
         $instances = @IPS_GetInstanceListByModuleID(self::DEVICE_MODULE_GUID);
         if (!is_array($instances)) {
@@ -56,20 +57,57 @@ class XSenseMQTTKonfigurator extends IPSModuleStrict
             if (!@IPS_InstanceExists($instanceId)) {
                 continue;
             }
+
+            $name = IPS_GetName($instanceId);
             $counts['devices']++;
-            $counts['online'] += $this->readDeviceBoolean($instanceId, 'Connectivity') ? 1 : 0;
-            $counts['smoke'] += $this->readDeviceBoolean($instanceId, 'Smoke') ? 1 : 0;
-            $counts['fault'] += $this->readDeviceBoolean($instanceId, 'SmokeFault') ? 1 : 0;
-            $counts['battery'] += $this->readDeviceBoolean($instanceId, 'Battery') ? 1 : 0;
-            $counts['lifeEnd'] += $this->readDeviceBoolean($instanceId, 'LifeEnd') ? 1 : 0;
+
+            $instance = @IPS_GetInstance($instanceId);
+            if (!is_array($instance) || (int)($instance['InstanceStatus'] ?? 0) !== self::STATUS_ACTIVE) {
+                $issues[] = sprintf(
+                    '%s: Instanz nicht aktiv (Status %d)',
+                    $name,
+                    (int)($instance['InstanceStatus'] ?? 0)
+                );
+            }
+
+            $states = [
+                'Connectivity' => ['count' => 'online',  'expected' => true,  'message' => 'offline'],
+                'Smoke'        => ['count' => 'smoke',   'expected' => false, 'message' => 'Rauch erkannt'],
+                'SmokeFault'   => ['count' => 'fault',   'expected' => false, 'message' => 'Gerätestörung'],
+                'Battery'      => ['count' => 'battery', 'expected' => false, 'message' => 'Batterie schwach'],
+                'LifeEnd'      => ['count' => 'lifeEnd', 'expected' => false, 'message' => 'Lebensdauer erreicht']
+            ];
+
+            foreach ($states as $ident => $state) {
+                $variableId = @IPS_GetObjectIDByIdent($ident, $instanceId);
+                if ($variableId === false || !@IPS_VariableExists($variableId)) {
+                    $issues[] = sprintf('%s: Statusvariable %s fehlt', $name, $ident);
+                    continue;
+                }
+
+                $value = (bool)@GetValue($variableId);
+                $counts[$state['count']] += $value ? 1 : 0;
+                if ($value !== $state['expected']) {
+                    $issues[] = sprintf('%s: %s', $name, $state['message']);
+                }
+            }
+
+            $lastSeenId = @IPS_GetObjectIDByIdent('LastSeen', $instanceId);
+            if ($lastSeenId === false || !@IPS_VariableExists($lastSeenId)) {
+                $issues[] = sprintf('%s: Statusvariable LastSeen fehlt', $name);
+            } elseif ((int)@GetValue($lastSeenId) <= 0) {
+                $issues[] = sprintf('%s: noch keine Statusmeldung empfangen', $name);
+            }
         }
 
         $offline = max(0, $counts['devices'] - $counts['online']);
-        $alarm = $counts['smoke'] > 0
-            || $counts['fault'] > 0
-            || $counts['battery'] > 0
-            || $counts['lifeEnd'] > 0
-            || $offline > 0;
+        if ($counts['devices'] === 0) {
+            $issues[] = 'Keine X-Sense-Rauchmelder gefunden.';
+        }
+        $alarm = count($issues) > 0;
+        $errorText = $alarm
+            ? implode("\n", $issues)
+            : sprintf('Keine Anomalie - alle %d Rauchmelder sind in Ordnung.', $counts['devices']);
 
         $status = match (true) {
             $counts['smoke'] > 0   => sprintf('Rauchalarm: %d', $counts['smoke']),
@@ -83,6 +121,7 @@ class XSenseMQTTKonfigurator extends IPSModuleStrict
 
         $this->SetValue('SystemStatus', $status);
         $this->SetValue('AnyAlarm', $alarm);
+        $this->SetValue('ErrorText', $errorText);
         $this->SetValue('DeviceCount', $counts['devices']);
         $this->SetValue('OfflineCount', $offline);
         $this->SetValue('SmokeCount', $counts['smoke']);
@@ -191,18 +230,19 @@ class XSenseMQTTKonfigurator extends IPSModuleStrict
     {
         $this->MaintainVariable('SystemStatus', 'Systemzustand', 3, '', 1, true);
         $this->MaintainVariable('AnyAlarm', 'Gesamtalarm', 0, '', 2, true);
-        $this->MaintainVariable('DeviceCount', 'Rauchmelder gesamt', 1, '', 3, true);
-        $this->MaintainVariable('OfflineCount', 'Rauchmelder offline', 1, '', 4, true);
-        $this->MaintainVariable('SmokeCount', 'Rauchalarm', 1, '', 5, true);
-        $this->MaintainVariable('FaultCount', 'Störungen', 1, '', 6, true);
-        $this->MaintainVariable('BatteryCount', 'Batterie schwach', 1, '', 7, true);
-        $this->MaintainVariable('LifeEndCount', 'Lebensdauer erreicht', 1, '', 8, true);
+        $this->MaintainVariable('ErrorText', 'Fehlertext', 3, '', 3, true);
+        $this->MaintainVariable('DeviceCount', 'Rauchmelder gesamt', 1, '', 4, true);
+        $this->MaintainVariable('OfflineCount', 'Rauchmelder offline', 1, '', 5, true);
+        $this->MaintainVariable('SmokeCount', 'Rauchalarm', 1, '', 6, true);
+        $this->MaintainVariable('FaultCount', 'Störungen', 1, '', 7, true);
+        $this->MaintainVariable('BatteryCount', 'Batterie schwach', 1, '', 8, true);
+        $this->MaintainVariable('LifeEndCount', 'Lebensdauer erreicht', 1, '', 9, true);
         $this->MaintainVariable(
             'LastOverviewUpdate',
             'Übersicht aktualisiert',
             1,
             ['PRESENTATION' => VARIABLE_PRESENTATION_DATE_TIME],
-            9,
+            10,
             true
         );
     }

@@ -114,6 +114,12 @@ X-Sense MQTT Device
   - auch die interne Bridge-/Device-Datenschnittstelle mit eigener GUID versehen
   - Bibliotheksname, Autor und Hersteller eindeutig als steuerbar-Variante gekennzeichnet
   - nur die offiziellen Symcon-MQTT-Schnittstellen unverändert beibehalten
+- **0.8**
+  - zentrale Anomalieprüfung aller dynamisch vorhandenen Rauchmelder
+  - Gesamtalarm berücksichtigt Rauch, Offline-Status, Gerätestörung, Batterie,
+    Lebensdauer, inaktive Instanzen sowie fehlende oder noch nie empfangene Statuswerte
+  - neuer Fehlertext mit Raumname und konkreter Ursache
+  - Aktualisierung der zentralen Prüfung alle 10 Sekunden
 - **0.3**
   - Basisstand des Ursprungsmoduls
 
