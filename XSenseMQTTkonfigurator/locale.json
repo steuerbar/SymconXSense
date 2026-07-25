@@ -1,0 +1,38 @@
+{
+    "translations": {
+        "de": {
+            "Devices": "Geräte",
+            "Name": "Name",
+            "Device ID": "Geräte-ID",
+            "Model": "Modell",
+            "Entities": "Entitäten",
+            "Refresh cache": "Cache aktualisieren",
+            "Bridge #%d, Cache: %d entries": "Bridge #%d, Cache: %d Einträge",
+            "No Bridge found": "Keine Bridge gefunden",
+            "Active": "Aktiv",
+            "No Bridge connected": "Keine Bridge verbunden",
+            "Debug": "Debug",
+            "ReceiveData": "Empfangene Daten",
+            "Topic=%s": "Topic=%s",
+            "Donations / Gifts": "Spenden / Geschenke",
+            "Say thank you and support the developer of this module:": "Sag Danke und unterstütze den Entwickler dieses Moduls:"
+        },
+        "en": {
+            "Devices": "Devices",
+            "Name": "Name",
+            "Device ID": "Device ID",
+            "Model": "Model",
+            "Entities": "Entities",
+            "Refresh cache": "Refresh cache",
+            "Bridge #%d, Cache: %d entries": "Bridge #%d, Cache: %d entries",
+            "No Bridge found": "No Bridge found",
+            "Active": "Active",
+            "No Bridge connected": "No Bridge connected",
+            "Debug": "Debug",
+            "ReceiveData": "Receive data",
+            "Topic=%s": "Topic=%s",
+            "Donations / Gifts": "Donations / Gifts",
+            "Say thank you and support the developer of this module:": "Say thank you and support the developer of this module:"
+        }
+    }
+}

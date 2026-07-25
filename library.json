@@ -1,0 +1,12 @@
+{
+    "id": "{2B1DB43B-728C-236F-E804-2D0B87E4DEB9}",
+    "name": "X-Sense MQTT",
+    "author": "Stephan Sprick / steuerbar",
+    "url": "https://github.com/steuerbar/SymconXSense",
+    "compatibility": {
+        "version": "8.1"
+    },
+    "version": "0.4",
+    "build": 4,
+    "date": 1785007200
+}

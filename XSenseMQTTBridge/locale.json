@@ -1,0 +1,28 @@
+{
+    "translations": {
+        "de": {
+            "Topic root": "Topic-Root",
+            "Debug": "Debug",
+            "Topic=%s": "Topic=%s",
+            "ReceiveData": "Daten empfangen",
+            "Active": "Aktiv",
+            "No MQTT Server connected": "Kein MQTT Server verbunden",
+            "MQTT Server inactive": "MQTT Server inaktiv",
+            "Topic root is empty": "Topic-Root ist leer",
+            "Donations / Gifts": "Spenden / Geschenke",
+            "Say thank you and support the developer of this module:": "Sag Danke und unterstütze den Entwickler dieses Moduls:"
+        },
+        "en": {
+            "Topic root": "Topic root",
+            "Debug": "Debug",
+            "Topic=%s": "Topic=%s",
+            "ReceiveData": "Receive data",
+            "Active": "Active",
+            "No MQTT Server connected": "No MQTT Server connected",
+            "MQTT Server inactive": "MQTT Server inactive",
+            "Topic root is empty": "Topic root is empty",
+            "Donations / Gifts": "Donations / Gifts",
+            "Say thank you and support the developer of this module:": "Say thank you and support the developer of this module:"
+        }
+    }
+}
