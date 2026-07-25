@@ -3,10 +3,10 @@
     "name": "X Sense MQTT Device",
     "aliases": ["X-Sense MQTT Device"],
     "type": 3,
-    "vendor": "Stephan Sprick",
-    "parentRequirements": ["{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}"],
+    "vendor": "steuerbar",
+    "parentRequirements": ["{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}"],
     "childRequirements": [],
-    "implemented": ["{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}"],
+    "implemented": ["{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}"],
     "prefix": "XSND",
     "url": "https://github.com/steuerbar/SymconXSense"
 }

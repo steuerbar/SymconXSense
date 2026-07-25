@@ -9,7 +9,7 @@ class XSenseMQTTBridge extends IPSModuleStrict
     use XSenseMQTTHelper;
     private const MQTT_SERVER_GUID = '{C6D2AEB3-6E1F-4B2E-8E69-3A1A00246850}';
     private const MQTT_DATA_GUID = '{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}';
-    private const BRIDGE_RX_GUID = '{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}'; // Bridge→Device (SendDataToChildren)
+    private const BRIDGE_RX_GUID = '{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}'; // Bridge→Device (SendDataToChildren)
 
     private const STATUS_ACTIVE = 102;
     private const STATUS_NO_PARENT = 104;

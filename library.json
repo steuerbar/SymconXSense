@@ -1,12 +1,12 @@
 {
     "id": "{9E6C1F8A-36C4-4A79-9B1A-5E2D7F830C41}",
-    "name": "X-Sense MQTT",
-    "author": "Stephan Sprick / steuerbar",
+    "name": "X-Sense Rauchmelder (steuerbar)",
+    "author": "steuerbar",
     "url": "https://github.com/steuerbar/SymconXSense",
     "compatibility": {
         "version": "8.1"
     },
-    "version": "0.6",
-    "build": 6,
-    "date": 1785009600
+    "version": "0.7",
+    "build": 7,
+    "date": 1785010200
 }

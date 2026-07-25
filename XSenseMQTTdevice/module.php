@@ -8,7 +8,7 @@ class XSenseMQTTDevice extends IPSModuleStrict
 {
     use XSenseMQTTHelper;
     private const BRIDGE_MODULE_GUID = '{5F2B7D91-8C43-4E0A-A6D5-1297B3C84E60}';
-    private const BRIDGE_RX_GUID = '{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}'; // Bridge→Device
+    private const BRIDGE_RX_GUID = '{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}'; // Bridge→Device
 
     private const STATUS_ACTIVE = 102;
     private const STATUS_NO_PARENT = 104;

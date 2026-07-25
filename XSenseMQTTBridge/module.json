@@ -3,10 +3,10 @@
     "name": "X Sense MQTT Bridge",
     "aliases": ["X-Sense MQTT Bridge"],
     "type": 2,
-    "vendor": "Stephan Sprick",
+    "vendor": "steuerbar",
     "parentRequirements": ["{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}"],
-    "childRequirements": ["{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}"],
-    "implemented": ["{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}", "{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}"],
+    "childRequirements": ["{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}"],
+    "implemented": ["{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}", "{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}"],
     "prefix": "XSNB",
     "url": "https://github.com/steuerbar/SymconXSense"
 }

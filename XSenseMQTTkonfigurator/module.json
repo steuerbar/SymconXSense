@@ -2,11 +2,11 @@
     "id": "{2D74B9F0-61C8-45A3-BE27-908F3C6D15A2}",
     "name": "X Sense MQTT Konfigurator",
     "type": 4,
-    "vendor": "Stephan Sprick",
+    "vendor": "steuerbar",
     "aliases": ["X-Sense MQTT Konfigurator"],
-    "parentRequirements": ["{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}"],
+    "parentRequirements": ["{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}"],
     "childRequirements": [],
-    "implemented": ["{D5C8F9A1-2D3E-4F50-8A6B-1C2D3E4F5A6B}"],
+    "implemented": ["{B0E6A3C7-5D91-4F28-8A4B-CE726190D53F}"],
     "prefix": "XSNK",
     "url": "https://github.com/steuerbar/SymconXSense"
 }

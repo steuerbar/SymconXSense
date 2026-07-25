@@ -110,6 +110,10 @@ X-Sense MQTT Device
 - **0.6**
   - eigener GUID-Satz für konfliktfreie Installation über Module Control
   - interne Bridge-, Geräte-, Konfigurator- und Kachelverweise angepasst
+- **0.7**
+  - auch die interne Bridge-/Device-Datenschnittstelle mit eigener GUID versehen
+  - Bibliotheksname, Autor und Hersteller eindeutig als steuerbar-Variante gekennzeichnet
+  - nur die offiziellen Symcon-MQTT-Schnittstellen unverändert beibehalten
 - **0.3**
   - Basisstand des Ursprungsmoduls
 
